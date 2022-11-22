@@ -8,6 +8,37 @@
 ## Using Docker
 If you are using Ubuntu 16.04 LTS and CUDA 9.2, you can follow the steps in the next section on this page for compilation. For other versions of Ubuntu or CUDA, we provide the pre-built Docker image and Dockerfile for running SoftGym. Please refer to our [Docker](docker/docker.md) page.
 
+## Instructions for Installation Ubuntu 18.04, CUDA 450.119.03, CUDA 10.2
+Special thanks to Daniel Takeshi for his [blog post](https://danieltakeshi.github.io/2021/02/20/softgym/)
+
+1. Install dependencies.
+```
+sudo apt-get install build-essential libgl1-mesa-dev freeglut3-dev libglfw3 libgles2-mesa-dev
+```
+Install [docker](https://docs.docker.com/engine/install/ubuntu/) and [nvidia-docker](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker) if they are not in your system
+```
+sudo apt-get install docker-ce docker-ce-cli containerd.io nvidia-docker2 
+```
+
+2. Pull docker image
+```
+docker pull xingyu/softgym
+```
+If you are running docker on your laptop/computer remember to use the following
+```
+xhost +si:localuser:root
+```
+this will prevent issues regarding not being able to open X11 on docker.
+
+3. Create conda environment
+Create a conda environment and activate it: `conda env create -f environment.yml`
+
+4. Modify `run_docker.sh` and `prepare.sh` to your path
+
+5. Run the following `./run_docker.sh`, `. ./prepare.sh`, `. ./compile.sh` 
+
+6. Test that it works (as a note, this didn't work through SSH)
+
 ## Instructions for Installation
 1. This codebase is tested with Ubuntu 16.04 LTS, CUDA 9.2 and Nvidia driver version 440.64. Other versions might work but are not guaranteed, especially with a different driver version. Please use our docker for other versions.
 
