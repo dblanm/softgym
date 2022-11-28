@@ -15,7 +15,7 @@ class ClothEnv(FlexEnv):
         super().__init__(**kwargs)
 
         assert observation_mode in ['key_point', 'point_cloud', 'cam_rgb']
-        assert action_mode in ['picker', 'pickerpickplace', 'sawyer', 'franka', 'picker_qpg']
+        assert action_mode in ['picker', 'pickerpickplace', 'sawyer', 'franka', 'picker_qpg', 'none']
         self.observation_mode = observation_mode
 
         if action_mode == 'picker':
@@ -38,6 +38,9 @@ class ClothEnv(FlexEnv):
                                          picker_low=(-0.3, 0., -0.3), picker_high=(0.3, 0.3, 0.3)
                                          )
             self.action_space = self.action_tool.action_space
+        elif action_mode == 'none':
+            self.action_tool = None
+
         if observation_mode in ['key_point', 'point_cloud']:
             if observation_mode == 'key_point':
                 obs_dim = len(self._get_key_point_idx()) * 3
